@@ -12,11 +12,13 @@ import axios from "axios";
         }
     })
     //creating the actionCreator for getting a specific product
- /*    export const getSingleProduct = createAsyncThunk("products/getSingleProduct",
+    /* export const getSingleProduct = createAsyncThunk("products/getSingleProduct",
     async(args,thunkAPI)=>{
         try{
+            console.log("args",args.productId);
             const res = await fetch(`http://localhost:5000/api/products/${args.productId}`);
             const data = await res.json();
+            console.log("product",data);
             return data;
         }catch(err){
             console.log(err);
@@ -64,7 +66,7 @@ import axios from "axios";
         state.pending = "rejected";
         console.log("request failed", action);
        })
-      /*  .addCase(getSingleProduct.pending,(state,action)=>{
+       /* .addCase(getSingleProduct.pending,(state,action)=>{
        })
        .addCase(getSingleProduct.fulfilled,(state,action)=>{
         state.singleProduct = action.payload;
@@ -75,5 +77,5 @@ import axios from "axios";
 
     }
 })
-export const {categoryFilter ,getSingleProduct} = productsSlice.actions;
+export const {categoryFilter ,getSingleProduct } = productsSlice.actions;
 export default productsSlice.reducer;

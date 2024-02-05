@@ -57,6 +57,7 @@ import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
         "user/logout",
         async(user)=>{
             localStorage.removeItem("user");
+            localStorage.removeItem("cart");
         }
     )
 

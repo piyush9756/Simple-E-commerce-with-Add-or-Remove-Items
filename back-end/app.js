@@ -8,7 +8,7 @@ const User = require("./public/schemas/userSchema");
 const { signupUser ,loginUser} = require("./public/controllers/userController");
 const auth = require("./public/middlewares/auth");
 const jwt = require("jsonwebtoken");
-const isAdminMiddleWare = require("./public/middlewares/isAdmin");
+const isAdminAuth = require("./public/middlewares/isAdmin");
 
 
 
@@ -40,9 +40,8 @@ app.route("/api/products/:productId")
 .get(async(req,res)=>{
   const productId = req.params.productId;
   try{
-  const product = await Product.findOne({id:productId});
-  if (!product) {
-    return res.status(404).send("Product not found");}
+  const product = await Product.findOne({_id:productId});
+  if (!product) {return res.status(404).send("Product not found");}
     res.send(product);
   }
   catch(err){
@@ -50,6 +49,19 @@ app.route("/api/products/:productId")
     
   }
 })
+/* .post(isAdminMiddleWare,async(req,res)=>{
+  const {title,price,description,category,image,sizes} = req.body;
+ const product = new Product({
+  title: title,
+  price: price,
+  description: description,
+  category: category,
+  image: image,
+  sizes: sizes
+ })
+ const saved = await product.save();
+ console.log(saved);
+}) */
 
 // login api 
 app.post("/api/user/login",loginUser);
@@ -62,9 +74,25 @@ app.post("/api/user/signup",signupUser);
 
 
 //testing api
-app.post("/api/test",isAdminMiddleWare,async(req,res)=>{
-
-  res.send("authed");
+app.post("/api/test",isAdminAuth,async(req,res)=>{
+  const {title,price,description,category,image,sizes} = req.body;
+  try{
+    if(!title || !price || !description|| !category || !image || !sizes){
+     throw Error("All fields must be filled");
+  }
+  const product = new Product({
+   title: title,
+   price: price,
+   description: description,
+   category: category,
+   image: image,
+   sizes: sizes
+  })
+  const saved = await product.save();
+  res.status(200).json(saved);
+  }catch(err){
+    res.status(400).json({error :err.message});
+  }
 })
 /* app.route("/api/user/cart")
 .post(auth,async(req,res)=>{

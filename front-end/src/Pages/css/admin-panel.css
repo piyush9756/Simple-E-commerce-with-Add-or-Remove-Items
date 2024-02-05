@@ -1,0 +1,6 @@
+.add-product-form{
+    width: fit-content;
+}
+.add-product-form form button {
+    margin-top: 10px;
+}

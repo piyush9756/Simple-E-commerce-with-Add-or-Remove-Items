@@ -8,13 +8,13 @@ import { addToCart, quantityCounter, removeFromCart, sizePicker } from "../Redux
 
 export default function ProductPage(){
   const params = useParams();
-  const productId = parseInt(params.productId);
+  const productId = params.productId;
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getSingleProduct({productId:productId}));
   },[dispatch,productId]);
   const cart = useSelector(state=>state.cart.cartItems);
-  const productIndex = cart.findIndex(p => p.id === productId);
+  const productIndex = cart.findIndex(p => p._id === productId);
   const product = cart[productIndex];
   let isClothing;
   if(product){

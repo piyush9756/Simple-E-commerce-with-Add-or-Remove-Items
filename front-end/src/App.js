@@ -15,6 +15,7 @@ import ShopPage from './Pages/shop';
 import { categoryFilter } from './Redux/Slices/productsSlice';
 import { logout, setUser } from './Redux/Slices/userSlice';
 import { setCart } from './Redux/Slices/cartSlice';
+import AdminPanel from './Pages/AdminPanel';
 function App() {
   const [isDropped , setIsDropped] = useState(false);
   const location = useLocation();
@@ -29,13 +30,17 @@ function App() {
     if(user){
       dispatch(setUser(user));
     }
-    dispatch(setCart(cart));
+    if(cart){
+      dispatch(setCart(cart));
+    }
+    
   },[dispatch]);
   function handleCategoryFilter(e){
 dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
   }
   function handleLogout(){
     dispatch(logout());
+    dispatch(setCart([]));
   }
   function handleToggleDropDown(e){
     setIsDropped(!isDropped);
@@ -53,8 +58,11 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
       </div>
       <ul className={isDropped?"dropdown-menu dropdown-menu-dark text-small shadow show":"dropdown-menu dropdown-menu-dark text-small shadow"} aria-labelledby="dropdownUser1" >
         <li><button className="dropdown-item" >New project...</button></li>
-       {user &&user.isAdmin && <li><button className="dropdown-item" >Admin Panel</button></li>} 
-        <li><button className="dropdown-item" >Profile</button></li>
+       {user &&user.isAdmin &&
+        <>
+       <li><Link to="/adminpanel" className="dropdown-item" >Admin Panel</Link></li> 
+        <li><button className="dropdown-item" >New Product</button></li>
+        </>}
         <li><hr className="dropdown-divider"/></li>
         <li><button className="dropdown-item" onClick={handleLogout}>Sign out</button></li>
       </ul>
@@ -180,6 +188,10 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
       <Route
       path="/shop"
       element={<ShopPage />}
+      />
+      <Route
+      path="adminpanel"
+      element={ <AdminPanel/>}
       />
     </Routes>
     </div>

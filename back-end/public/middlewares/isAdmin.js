@@ -3,7 +3,7 @@ const User = require("../schemas/userSchema");
 
 
 
-const isAdminMiddleWare = async(req,res,next)=>{
+const isAdminAuth = async(req,res,next)=>{
     //verify the authentication
     const authorization = req.headers.authorization;
     if(!authorization){
@@ -24,4 +24,4 @@ const isAdminMiddleWare = async(req,res,next)=>{
     }
 }
 
-module.exports = isAdminMiddleWare;
+module.exports = isAdminAuth;

@@ -1,36 +1,45 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const testAuthed = createAsyncThunk(
+export const createNewProduct = createAsyncThunk(
     "admin/authedRequest",
     async(args)=>{
-        const token = localStorage.getItem("user").token;
-        const res = await fetch("http://localhost:5000/api/test",{
+        const {token} = JSON.parse(localStorage.getItem("user"));
+        console.log(token);
+        try{
+            const res = await fetch("http://localhost:5000/api/test",{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                body:JSON.stringify(args)
             });
-            const data = await res.json();
-            return data;
+            const product = await res.json();
+            return product;
+        }catch(err){
+            console.log(err);
+            return err.message;
+        }
+        
     }
 )
 
 const adminSlice = createSlice({
    name: "admin",
     initialState:{
-        msg: null
+        product: null,
+        err:null
     },
     reducers:{},
     extraReducers(builder){
         builder
-        .addCase(testAuthed.pending,(state,action)=>{
+        .addCase(createNewProduct.pending,(state,action)=>{
 
         })
-        .addCase(testAuthed.fulfilled,(state,action)=>{
-            state.msg = action.payload;
+        .addCase(createNewProduct.fulfilled,(state,action)=>{
+            state.product = action.payload;
         })
-        .addCase(testAuthed.rejected,(state,action)=>{
+        .addCase(createNewProduct.rejected,(state,action)=>{
 
         })
         
