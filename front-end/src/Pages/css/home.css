@@ -1,0 +1,24 @@
+.home-container{
+    display: flex;
+    min-height: 100vh;
+    height: 100%;
+    
+   
+}
+.slideshow-container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.sidebar-container{
+    display: flex;
+    text-align: left;
+    min-width: fit-content;
+}
+ul li .nav-link:hover{
+    color: #fff;
+    background-color: #0d6efd;
+}
