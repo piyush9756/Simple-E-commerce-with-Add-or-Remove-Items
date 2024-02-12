@@ -4,32 +4,34 @@ import {Link} from "react-router-dom";
 import "../css/productItem.css";
 export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,id,product}){
     const dispatch = useDispatch();
-    const isClothing = product.category.includes("clothing");
+    /* const isClothing = product.category.includes("clothing"); */
     return (
         
         <div className="product_item">
-            <Link to={`/product/${id}`} className="link-img">
+            <div  className="link-img">
             <div className="img">
               <img src={imgSrc} alt={imgAlt} className="img-slide"/>
               <p className="brand_name">{brandName}</p>
             </div>
-            </Link>
+            </div>
             {/* <!-- Size --!> */}
-                {isClothing? 
+                {/* {isClothing? 
                 <div className="size_color">
                 <div className="title">SIZE</div>
                 <div className="size_wrap">
                    <ul>
                    {sizes.map((size, i)=>{
                        return (
-                       <li key={i}>
+                       <li 
+                       key={i}
+                       >
                         <span>{size}</span>
                         </li>);
                    })}
                   </ul> 
                </div>
                </div>
-               : null}
+               : null} */}
                 
             {/* <!-- Price --!> */}
             <div className="price">
@@ -46,8 +48,6 @@ export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,id,prod
                 Add To Cart 
                 </button>
                 </Link>
-                
-        
           </div>
     )
 }

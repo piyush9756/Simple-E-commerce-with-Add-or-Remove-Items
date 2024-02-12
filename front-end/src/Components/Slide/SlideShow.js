@@ -14,7 +14,7 @@ export default function SlideShow(props){
           return(
             
           <ProductItem
-              id = {p.id}
+              id = {p._id}
               key={p._id}
               imgSrc={p.image} 
               imgAlt="Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel" 

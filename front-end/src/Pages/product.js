@@ -32,7 +32,6 @@ export default function ProductPage(){
     dispatch(quantityCounter({product:product,quantityNo:e.target.value}));
   };
   function handlePickedSize (size){
-    console.log(size);
       dispatch(sizePicker({size: size,product:product}))
   }
     return(

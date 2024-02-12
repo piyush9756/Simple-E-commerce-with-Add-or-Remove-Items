@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { addToCart, removeFromCart } from "../Redux/Slices/cartSlice";
+import { addToCart, quantityCounter, removeFromCart } from "../Redux/Slices/cartSlice";
 
 export default function CartItem({item}){
   const dispatch = useDispatch();
@@ -9,6 +9,9 @@ export default function CartItem({item}){
   }
   function handleMinusQuantity(){
     dispatch(removeFromCart({product:item}))
+  }
+  function handleQuantity(){
+    dispatch(quantityCounter({product:item}));
   }
 
     return (
@@ -54,17 +57,17 @@ export default function CartItem({item}){
           <div className="d-flex mb-4" style={{maxWidth: "300px"}}>
             <button className="btn btn-primary px-3 me-2"
               onClick={handleMinusQuantity}>
-              <i className="fas fa-minus">-</i>
+              <i className="fas fa-minus"></i>
             </button>
 
             <div className="form-outline">
-              <input id="form1" min="0" name="quantity" value={item.cartQuantity} type="number" className="form-control" />
+              <input id="form1" min="0" name="quantity" value={item.cartQuantity} type="number" className="form-control"  onChange={handleQuantity}/>
               <label className="form-label" htmlFor="form1">Quantity</label>
             </div>
 
             <button className="btn btn-primary px-3 ms-2"
               onClick={handleAddQuantity}>
-              <i className="fas fa-plus">+</i>
+              <i className="fas fa-plus"></i>
             </button>
           </div>
           {/* <!-- Quantity --> */}

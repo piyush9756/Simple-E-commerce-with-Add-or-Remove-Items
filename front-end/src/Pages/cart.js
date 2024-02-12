@@ -2,8 +2,9 @@ import "./css/cart.css";
 import CartItem from "../Components/cartItem";
 import { useSelector } from "react-redux";
 export default function CartPage(){
-  const cartItems = useSelector(state=> state.cart.cartItems);
-  console.log(cartItems);
+  const cart = useSelector(state=> state.cart);
+  const cartItems = cart.cartItems;
+  
     return (
     <section className="h-100 gradient-custom">
      <div className="container py-5">
@@ -73,7 +74,7 @@ export default function CartPage(){
                     <p className="mb-0">(including VAT)</p>
                   </strong>
                 </div>
-                <span><strong>$53.98</strong></span>
+                <span><strong>${cart.totalPrice}</strong></span>
               </li>
             </ul>
 

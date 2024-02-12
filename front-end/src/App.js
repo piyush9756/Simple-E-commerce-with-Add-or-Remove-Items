@@ -1,5 +1,6 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Footer from './Components/partials/footer';
 import HomePage from './Pages/home';
 import { Route, Routes, Link, Navigate, useLocation } from 'react-router-dom';
@@ -16,12 +17,14 @@ import { categoryFilter } from './Redux/Slices/productsSlice';
 import { logout, setUser } from './Redux/Slices/userSlice';
 import { setCart } from './Redux/Slices/cartSlice';
 import AdminPanel from './Pages/AdminPanel';
+import DarkModeButton from './Components/smallComponents/darkModeButton';
 function App() {
   const [isDropped , setIsDropped] = useState(false);
   const location = useLocation();
   const user = useSelector(state=>state.user.user);
   const products = useSelector(state => state.product.products);
   const cartItems = useSelector(state=> state.cart.cartItems);
+  const isDarkTheme = useSelector(state => state.theme.darkTheme);
   const dispatch = useDispatch();
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("user"));
@@ -37,26 +40,27 @@ function App() {
   },[dispatch]);
   function handleCategoryFilter(e){
 dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
-  }
+  };
   function handleLogout(){
     dispatch(logout());
     dispatch(setCart([]));
-  }
+  };
   function handleToggleDropDown(e){
     setIsDropped(!isDropped);
-  }
+  };
+
   return (
-    <div className="App">
+    <div className="App" >
        <div className="home-container">
-          <div className="sidebar-container">
-        <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" >
+          <div className="sidebar-container" data-bs-theme="light">
+        <div className={`d-flex flex-column flex-shrink-0 p-3 ${isDarkTheme? "text-white bg-dark":"text-black bg-light"}`} >
           {/* <!-- account dropdown --!> */}
         <div className="dropdown" onClick={handleToggleDropDown}>
-      <div className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <div className={`d-flex align-items-center ${isDarkTheme? "text-white ":"text-black"} text-decoration-none dropdown-toggle`} id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         {/* <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"/> */}
         <strong>{user &&user.displayName}</strong>
       </div>
-      <ul className={isDropped?"dropdown-menu dropdown-menu-dark text-small shadow show":"dropdown-menu dropdown-menu-dark text-small shadow"} aria-labelledby="dropdownUser1" >
+      <ul className={isDropped?"dropdown-menu  text-small shadow show":"dropdown-menu  text-small shadow"} aria-labelledby="dropdownUser1" >
         <li><button className="dropdown-item" >New project...</button></li>
        {user &&user.isAdmin &&
         <>
@@ -64,13 +68,13 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
         <li><button className="dropdown-item" >New Product</button></li>
         </>}
         <li><hr className="dropdown-divider"/></li>
-        <li><button className="dropdown-item" onClick={handleLogout}>Sign out</button></li>
+        {user && <li><button className="dropdown-item" onClick={handleLogout}>Sign out</button></li>}
       </ul>
     </div>
     <hr/>
     {/* <!-- Cart  --!> */}
     <li>
-        <Link to= "/cart" className="nav-link text-white">
+        <Link to= "/cart" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
         <div className="nav-bag">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -89,10 +93,15 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
         </Link>
       </li>
     <hr/>
+    {/* <!-- Dark Mode Button  --!> */}
+    <li >
+        <DarkModeButton/>
+    </li>
+    <hr/>
     {/* <!-- list Items  --!> */}
     <ul className="nav nav-pills flex-column mb-auto"> 
       <li >
-        <Link to="/" className="nav-link text-white" aria-current="page">
+        <Link to="/" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`} aria-current="page">
           <svg className="bi me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
           Home
         </Link>
@@ -100,13 +109,13 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
       {!user && 
       <>
       <li>
-        <Link to="/signin" className="nav-link text-white">
+        <Link to="/signin" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
           <svg className="bi me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
           Login
         </Link>
       </li>
       <li>
-        <Link to="/signup" className="nav-link text-white">
+        <Link to="/signup" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
           <svg className="bi me-2" width="16" height="16"><use xlinkHref="#table"></use></svg>
           SignUp
         </Link>
@@ -114,20 +123,20 @@ dispatch(categoryFilter({fullProducts: products,category:e.target.value}))
       </>
       }
       <li>
-        <Link to="/shop" className="nav-link text-white">
+        <Link to="/shop" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
           
           <svg className="bi me-2" width="16" height="16"><use xlinkHref="#grid"></use></svg>
           Shop
         </Link>
       </li>
       <li>
-        <Link to="/contact" className="nav-link text-white">
+        <Link to="/contact" className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
           <svg className="bi me-2" width="16" height="16"><use xlinkHref="#grid"></use></svg>
           Contact Us
         </Link>
       </li>
       <li>
-        <div className="nav-link text-white">
+        <div className={`nav-link ${isDarkTheme? "text-white ":"text-black"}`}>
           {/* <!-- Filtering Options  --!> */}
           {location.pathname === "/shop" ?
           <div className="filterOptions">
