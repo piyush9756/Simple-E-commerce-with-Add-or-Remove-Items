@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import "./css/login.css";
 import { login } from "../Redux/Slices/userSlice";
 import { Link } from "react-router-dom";
 export default function LoginPage(){

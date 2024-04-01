@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+/* import { useDispatch, useSelector } from "react-redux";
 
 export default function ContactPage(){
     const user = useSelector(state =>state.user.user);
@@ -15,4 +15,4 @@ export default function ContactPage(){
         </form>
         </>
     )
-}
+} */

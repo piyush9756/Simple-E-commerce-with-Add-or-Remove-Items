@@ -1,6 +1,5 @@
 import React from 'react'
-import "./css/darkMode.css";
-import { switchTheme } from '../../Redux/Slices/themeSlice';
+import { switchTheme } from '../Redux/Slices/themeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function DarkModeButton() {

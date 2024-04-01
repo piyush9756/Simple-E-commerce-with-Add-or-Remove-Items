@@ -1,18 +1,17 @@
-import "../css/slideshow.css";
 import {useSelector } from "react-redux";
 import ProductItem from "./productItem";
+import { Container, Row } from "react-bootstrap";
 export default function SlideShow(props){
   const products = useSelector(state => state.product.products);
   const filteredProducts = products.filter(p=>p.category === props.category);
     return (
         <>
-           <div className="wrapper">
-           <h1 >{props.category}</h1>
-        <div className="product_wrap">
+           <Container className="px-5">
+           <h1 className="fw-bold fst-italic">{props.category}</h1>
+        <Row className="">
         {filteredProducts &&filteredProducts.map(p=>{
           
           return(
-            
           <ProductItem
               id = {p._id}
               key={p._id}
@@ -23,13 +22,13 @@ export default function SlideShow(props){
               price = {p.price} 
               product = {p}
               />
-              
           )
         })}
-      </div>
-    </div>
-    <hr/>
-    <hr/>
+      </Row>
+    </Container>
+    <hr className="border-3 border-danger"/>
+    <hr className="border-3 border-danger"/>
+    
       </>
     )
 }

@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import "./css/admin-panel.css";
 import { createNewProduct } from "../Redux/Slices/adminSlice";
 import { useState } from "react";
 export default function AdminPanel() {

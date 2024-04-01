@@ -1,4 +1,3 @@
-import "./css/cart.css";
 import CartItem from "../Components/cartItem";
 import { useSelector } from "react-redux";
 export default function CartPage(){
