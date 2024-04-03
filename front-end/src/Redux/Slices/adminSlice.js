@@ -5,7 +5,7 @@ export const createNewProduct = createAsyncThunk(
     async(args)=>{
         const {token} = JSON.parse(localStorage.getItem("user"));
         try{
-            const res = await fetch(`http://localhost:5000/api/admin/products`,{
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URI}/api/admin/products`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -28,7 +28,7 @@ export const removeProduct = createAsyncThunk(
     async(args)=>{
         const {token} = JSON.parse(localStorage.getItem("user"));
         try{
-            const res = await fetch(`http://localhost:5000/api/admin/products`,{
+            const res = await fetch(`${process.env.BACKEND_URI}/api/admin/products`,{
                 method:"DELETE",
                 headers:{
                     "Content-Type":"application/json",

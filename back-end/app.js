@@ -32,19 +32,6 @@ const connectDB = async ()=>{
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //full products
 app.route("/api/products")
 .get(async(req,res)=>{

@@ -4,7 +4,7 @@ import axios from "axios";
     export const getProducts = createAsyncThunk("products/getProducts",
     async(args,thunkAPI)=>{
         try{
-            const res = await axios.get("http://localhost:5000/api/products");
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/products`);
             const data = res.data;
             return data;
         }catch(err){
