@@ -37,7 +37,7 @@ import axios from "axios";
     },
     reducers:{
         categoryFilter: (state,action)=>{
-            const fullProducts = action.payload.fullProducts;
+            const fullProducts = state.products;
             const category = action.payload.category;
             if(category === "full items"){
                 state.filteredProducts = state.products;

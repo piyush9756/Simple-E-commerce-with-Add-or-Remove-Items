@@ -16,6 +16,8 @@ import { setUser } from './Redux/Slices/userSlice';
 import { setCart } from './Redux/Slices/cartSlice';
 import AdminPanel from './Pages/AdminPanel';
 import SideBar from './Components/sidebar';
+import NewProduct from './Pages/NewProduct';
+import RemoveProduct from './Pages/RemoveProduct';
 function App() {
   const user = useSelector(state=>state.user.user);
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ function App() {
 
 
   return (
-    <Container fluid className="app" >
+    <Container fluid className="app">
       <Row className="min-100">
       <SideBar/>
       <Col lg={10} md={12} className="px-0 ">
@@ -59,12 +61,6 @@ function App() {
         <Navigate to="/"/>
       }
       />
-  {/*     <Route
-      path="/contact"
-      element={
-        <ContactPage />
-      }
-      /> */}
       <Route 
       path="/product/:productId"
       element={<ProductPage />}
@@ -79,7 +75,26 @@ function App() {
       />
       <Route
       path="adminpanel"
-      element={ <AdminPanel/>}
+      element={  
+        user && user.isAdmin ?
+        <AdminPanel/> :
+        <Navigate to="/"/>
+    }
+      />
+      <Route
+      path="admin/newproduct"
+      element={
+      user && user.isAdmin ?
+      <NewProduct/>:
+      <Navigate to="/"/>
+      }
+      />
+      <Route
+      path="admin/removeproduct"
+      element={ user && user.isAdmin ?
+      <RemoveProduct/>:
+      <Navigate to="/"/>
+      }
       />
     </Routes>
       </Col>

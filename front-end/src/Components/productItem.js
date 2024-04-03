@@ -1,9 +1,15 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { addToCart} from "../Redux/Slices/cartSlice";
 import {Link} from "react-router-dom";
-import { Card, Col, Row } from "react-bootstrap";
-export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,description,id,product}){
+import { Card, Col, Row , Button } from "react-bootstrap";
+import { removeProduct } from "../Redux/Slices/adminSlice";
+export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,description,id,product ,showDelete}){
     const dispatch = useDispatch();
+    const user = useSelector(state=>state.user.user);
+    const handleDeleteProduct = (e)=>{
+        dispatch(removeProduct({productId :id}))
+        console.log(id);
+    }
     const isClothing = product.category.includes("clothing"); 
     return (
         <Col  lg={3} md={6} sm={12} className="d-flex py-2 ">
@@ -23,7 +29,7 @@ export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,descrip
                     {description}
                     </Card.Text>
                     
-                    {isClothing? 
+                    {isClothing&& 
                     <>
                     <hr />
                 <h5 className="fw-bold">SIZE</h5>
@@ -32,22 +38,23 @@ export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,descrip
                     {sizes.map((size, i)=>{
                         return (
                             <Col xl={3} lg={6} md={6} sm={6} xs={6} key={i} > 
-                    
-                        <div   className="btn btn-outline-danger rounded-circle border-2 border p-2 m-1"
-                        
-                        >
+                        <div   className="btn btn-outline-danger rounded-circle border-2 border p-2 m-1">
                         <span>{size}</span>
                         </div>
                         </Col>);
                     })}
                 </Row>
                 </>
-                : null}  
-                    
+                }  
                 </Card.Body>
                 <Card.Footer>
-                    <strong className="text-black"> Price: ${price}</strong>
-                    <Link 
+                    <strong className="text-black">Price: ${price}</strong>
+                    {}
+                    
+               {showDelete && user && user.isAdmin ?
+                <Button  variant="btn" className="btn-outline-danger mx-2" onClick={handleDeleteProduct}><i className="fa-solid fa-trash"></i></Button>
+                :
+                <Link 
                     to={`/product/${id}`}
                     className="btn btn-outline-dark mt-auto mx-2 fw-semibold rounded-4"
                     variant="secondary" 
@@ -58,6 +65,7 @@ export default function ProductItem({imgSrc,imgAlt,brandName,sizes,price,descrip
                         Add to Cart
                     
                 </Link>
+                } 
                 </Card.Footer>
             
         </Card>

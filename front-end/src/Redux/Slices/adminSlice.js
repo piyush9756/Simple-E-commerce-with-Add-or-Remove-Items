@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const createNewProduct = createAsyncThunk(
-    "admin/authedRequest",
+    "admin/createProduct",
     async(args)=>{
         const {token} = JSON.parse(localStorage.getItem("user"));
-        console.log(token);
         try{
-            const res = await fetch("http://localhost:5000/api/test",{
+            const res = await fetch(`http://localhost:5000/api/admin/products`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -21,6 +20,28 @@ export const createNewProduct = createAsyncThunk(
             return err.message;
         }
         
+    }
+);
+
+export const removeProduct = createAsyncThunk(
+    "admin/removeProduct",
+    async(args)=>{
+        const {token} = JSON.parse(localStorage.getItem("user"));
+        try{
+            const res = await fetch(`http://localhost:5000/api/admin/products`,{
+                method:"DELETE",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body:JSON.stringify(args)
+            });
+                const response = await res.json();
+                return response;
+        }catch(err){
+        console.log(err)
+        return err.message
+            }
     }
 )
 

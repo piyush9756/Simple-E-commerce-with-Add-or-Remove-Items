@@ -14,7 +14,7 @@ const isAdminAuth = require("./public/middlewares/isAdmin");
 
 
 const app = express();
-const port = 5000;
+const port =  process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -49,19 +49,33 @@ app.route("/api/products/:productId")
     
   }
 })
-/* .post(isAdminMiddleWare,async(req,res)=>{
+app.route("/api/admin/products")
+.post(isAdminAuth,async(req,res)=>{
   const {title,price,description,category,image,sizes} = req.body;
- const product = new Product({
-  title: title,
-  price: price,
-  description: description,
-  category: category,
-  image: image,
-  sizes: sizes
- })
- const saved = await product.save();
- console.log(saved);
-}) */
+  console.log(req.body);
+  try{
+    if(!title || !price || !description|| !category || !image ){
+     throw Error("All fields must be filled");
+  }
+  const product = new Product({
+   title: title,
+   price: price,
+   description: description,
+   category: category,
+   image: image,
+   sizes: sizes
+  })
+  const saved = await product.save();
+  res.status(200).json(saved.title);
+  }catch(err){
+    res.status(400).json({error :err.message});
+  }
+})
+.delete(isAdminAuth,async(req,res)=>{
+  const productId = req.body.productId;
+  await Product.findByIdAndDelete(productId);
+  console.log(productId);
+})
 
 // login api 
 app.post("/api/user/login",loginUser);
@@ -73,11 +87,11 @@ app.post("/api/user/signup",signupUser);
 
 
 
-//testing api
+/* //testing api
 app.post("/api/test",isAdminAuth,async(req,res)=>{
   const {title,price,description,category,image,sizes} = req.body;
   try{
-    if(!title || !price || !description|| !category || !image || !sizes){
+    if(!title || !price || !description|| !category || !image ){
      throw Error("All fields must be filled");
   }
   const product = new Product({
@@ -93,7 +107,7 @@ app.post("/api/test",isAdminAuth,async(req,res)=>{
   }catch(err){
     res.status(400).json({error :err.message});
   }
-})
+}) */
 /* app.route("/api/user/cart")
 .post(auth,async(req,res)=>{
   const userId = req.user;

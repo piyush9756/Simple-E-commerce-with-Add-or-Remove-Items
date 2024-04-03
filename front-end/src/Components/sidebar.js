@@ -13,15 +13,15 @@ export default function SideBar() {
     }
   return (
     <Col lg={2} md={12} className="px-0  text-center bg-light">
-      <Navbar expand="lg" className="align-items-start">
-        <Container fluid className="p-0 d-lg-flex flex-lg-column" >
-          <Navbar.Brand> 
+      <Navbar expand="lg" className="align-items-start fw-semibold">
+        <Container fluid className="p-0 d-lg-flex flex-lg-column " >
+          <Navbar.Brand className=" mx-auto"> 
           <Link to="/" className="text-black text-decoration-none">
-          <span className="fs-3 fw-bold">Sizzle Shop</span>
+          <span className="fs-3 fw-bold ">Sizzle Shop</span>
           </Link>
           </Navbar.Brand>
           <hr/>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className="mx-auto" />
       <Navbar.Collapse>
         <div className=" p-3 text-black " >
      
@@ -49,8 +49,11 @@ export default function SideBar() {
         <Link to="/adminpanel" className="dropdown-item">
         Admin Panel
         </Link>
-        <Link to="/newproduct" className="dropdown-item">
+        <Link to="/admin/newproduct" className="dropdown-item">
           Add New Product
+        </Link>
+        <Link to="/admin/removeproduct" className="dropdown-item">
+          Remove Product
         </Link>
         </>
         }
