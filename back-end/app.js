@@ -21,8 +21,27 @@ app.use(express.static("public"));
 app.use(cors());
 /* app.use(auth); */
 
+mongoose.set("strictQuery",false);
+const connectDB = async ()=>{
+  try{
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  }catch(err){
+    console.log(err);
+    process.exit(1);
+  }
+}
 
-mongoose.connect("mongodb://localhost:27017/e-commerce");
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -115,6 +134,8 @@ app.post("/api/test",isAdminAuth,async(req,res)=>{
 }) */
 
 
-app.listen(port,()=>{
+connectDB().then(()=>{
+  app.listen(port,()=>{
     console.log("server started on port:",port);
+})
 })
