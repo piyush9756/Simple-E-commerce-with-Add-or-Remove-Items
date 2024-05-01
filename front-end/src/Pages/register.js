@@ -21,7 +21,7 @@ export default function RegisterPage(){
         <div className="background">
        <div className="login-container">
     <div className="login-header">
-      <h2>Welcome to <span>MindLink</span></h2>
+      <h2>Welcome to <span>Sizzle Shop</span></h2>
       <p>SignUp </p>
     </div>
     <div className="login-form">

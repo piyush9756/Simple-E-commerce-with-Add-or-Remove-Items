@@ -21,7 +21,7 @@ app.use(express.static("public"));
 app.use(cors());
 /* app.use(auth); */
 
-mongoose.set("strictQuery",false);
+
 const connectDB = async ()=>{
   try{
     const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -31,6 +31,7 @@ const connectDB = async ()=>{
     process.exit(1);
   }
 }
+/* await mongoose.connect("mongodb://localhost:27017/e-commerce"); */
 
 //full products
 app.route("/api/products")

@@ -23,7 +23,7 @@ return (
 
   <div className="login-container">
     <div className="login-header">
-      <h2>Welcome to <span>MindLink</span></h2>
+      <h2>Welcome to <span>Sizzle Shop</span></h2>
       <p>Login to your account</p>
     </div>
     <div className="login-form">
