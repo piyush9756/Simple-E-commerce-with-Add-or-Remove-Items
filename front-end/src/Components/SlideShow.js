@@ -1,12 +1,12 @@
 import {useSelector } from "react-redux";
 import ProductItem from "./productItem";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 export default function SlideShow(props){
   const products = useSelector(state => state.product.products);
   const filteredProducts = products.filter(p=>p.category === props.category);
     return (
         <>
-           <Container className="px-5">
+            <Container className="px-5">
            <h1 className="fw-bold fst-italic">{props.category}</h1>
         <Row className="">
         {filteredProducts &&filteredProducts.map(p=>{
@@ -27,7 +27,7 @@ export default function SlideShow(props){
       </Row>
     </Container>
     <hr className="border-3 border-danger"/>
-    <hr className="border-3 border-danger"/>
+    <hr className="border-3 border-danger"/> 
     
       </>
     )

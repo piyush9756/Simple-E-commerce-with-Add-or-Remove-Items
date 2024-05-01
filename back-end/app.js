@@ -36,13 +36,16 @@ const connectDB = async ()=>{
 //full products
 app.route("/api/products")
 .get(async(req,res)=>{
-  const products = await Product.find();
-  res.send(products);
+  try{
+    const products = await Product.find();
+  res.status(200).send(products);
+  }catch(err){
+    res.status(400).send(err);
+  }
+  
 })
 
-
 //single product
-
 app.route("/api/products/:productId")
 .get(async(req,res)=>{
   const productId = req.params.productId;

@@ -5,10 +5,9 @@ import axios from "axios";
     async(args,thunkAPI)=>{
         try{
             const res = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/products`);
-            const data = res.data;
-            return data;
+            return res.data;
         }catch(err){
-            console.log(err);
+            throw err
         }
     })
     //creating the actionCreator for getting a specific product
@@ -32,7 +31,8 @@ import axios from "axios";
         singleProduct: null,
         filteredProducts: [],
         category : null,
-        pending: null
+        pending: null,
+        status:null
         
     },
     reducers:{
@@ -63,8 +63,9 @@ import axios from "axios";
         state.pending = false;
        })
        .addCase(getProducts.rejected,(state,action)=>{
-        state.pending = "rejected";
-        console.log("request failed", action);
+        state.pending = false;
+        state.status = action.error.message;
+        
        })
        /* .addCase(getSingleProduct.pending,(state,action)=>{
        })
